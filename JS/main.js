@@ -40,7 +40,7 @@ function changePauseState(condition) {
 // Check if one theme has been set previously and apply it (or std theme if not found):
 let savedTheme = localStorage.getItem('savedTheme');
 savedTheme === null ?
-    changeTheme('standard')
+    changeTheme('darker')
     : changeTheme(localStorage.getItem('savedTheme'));
 
 // Functions;
