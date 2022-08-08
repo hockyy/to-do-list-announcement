@@ -219,9 +219,10 @@ const hourReset = 5;
 const oneMinute = 60000;
 const hourResetTime = hourReset * 60 * oneMinute
 let timeDuration = hourResetTime;
-
+const offset = -(new Date).getTimezoneOffset() / 60; // 7
+const offsetTime = offset * 60 * oneMinute
 function getNextReset() {
-    return new Date(Date.now() + hourReset*60*oneMinute).getTime();
+    return new Date(Date.now() + hourResetTime).getTime();
 }
 
 function getNextByDuration() {
@@ -231,6 +232,9 @@ function getNextByDuration() {
 let countDownDate = getNextReset();
 
 let interval = null;
+
+document.getElementById('time-input').value = (new Date(Date.now() + hourResetTime + offsetTime)).toISOString().slice(0, 16);
+
 
 let countDownFunc = function() {
 
@@ -273,11 +277,11 @@ function resetInterval() {
     countDownDate = getNextReset();
     timeDuration = hourResetTime;
     document.getElementById("demo").innerHTML = `${hourReset}:00:00`
-    console.log(countDownDate)
+    // console.log(countDownDate)
 }
 
 function setDate() {
-    console.log("here")
+    // console.log("here")
     const timeElem = document.querySelector("#time-input").value
     if(!timeElem) futureTime = getNextReset()
     else futureTime = new Date(timeElem)
