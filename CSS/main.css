@@ -92,8 +92,11 @@ body {
 #title {
     white-space: pre;
     overflow: hidden;     
-    margin-bottom: 20px;
   }
+
+#demo {
+    font-size: 150px;
+}
   
 
 #title.darker-title {
@@ -280,7 +283,7 @@ form button {
     padding: 7px;
     /* word-wrap: break-word; */
     /* flex-wrap: wrap; */
-    font-size: 40px;
+    font-size: 25px;
     flex: 1; /* To push the trash and the check button to the right */
     border-radius: 30px;
 
@@ -304,9 +307,15 @@ form button {
     border-radius: 10px;
     min-width: 100px;
 }
+.ctrl-btn2 {
+    margin: 7px;
+    font-size: 17px;
+    border-radius: 5px;
+    min-width: 60px;
+}
 
 .todo-item {
-    padding: 0rem 0.5rem;
+    padding: 0rem 0.1rem;
 }
 
 .fa-trash, .fa-check { 
@@ -343,8 +352,8 @@ form button {
         animation: 
             animated-text 3s steps(16,end) 0.5s 1 normal both,
             animated-cursor 750ms steps(16,end) infinite;
-        margin-bottom: 10px;
-        margin-top: 30px;
+        margin-bottom: 5px;
+        margin-top: 5px;
         max-width: 330px;
     }
 }
@@ -381,3 +390,47 @@ form button {
         box-shadow: 0 0 5px lightgray;
     }
 }
+
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    border-top-right-radius: 17px;
+    border-bottom-right-radius: 17px;
+    border-top-left-radius: 17px;
+    border-bottom-left-radius: 17px;
+  background-image: linear-gradient(100deg, #001214, #001f29);
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
