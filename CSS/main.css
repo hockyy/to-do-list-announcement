@@ -91,7 +91,7 @@ body {
 
 /* Animation */
 #title {
-    border-right: solid 3px rgba(0, 0, 0, 0.75);
+    /*border-right: solid 3px rgba(0, 0, 0, 0.75);*/
     white-space: pre;
     overflow: hidden;     
     letter-spacing: 0.20rem;
@@ -100,11 +100,6 @@ body {
     max-width: 480px;
   }
   
-  /* Animation */
-#title {
-    animation: animated-text 2s steps(11,end) 0.5s 1 normal both,
-        animated-cursor 750ms steps(11,end) infinite;
-  }
 
 #title.darker-title {
     animation: animated-text 2s steps(11,end) 0.5s 1 normal both, darker-animated-cursor 750ms steps(11,end) infinite;
@@ -112,22 +107,8 @@ body {
   
   /* text animation */
   
-  @keyframes animated-text{
-    from{width: 0%;}
-    to{width: 480px;}
-  }
   
   /* cursor animations */
-  
-  @keyframes animated-cursor{
-    from{border-right-color: rgba(0, 0, 0, 0.75);}
-    to{border-right-color: transparent;}
-  }
-
-  @keyframes darker-animated-cursor {
-    from{border-right-color: #01394c;}
-    to{border-right-color: transparent;}
-  }
 
 form {
     display: flex;

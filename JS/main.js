@@ -47,10 +47,10 @@ function addToDo(event) {
         savelocal(toDoInput.value);
 
         // check btn;
-        const checked = document.createElement('button');
-        checked.innerHTML = '<i class="fas fa-check"></i>';
-        checked.classList.add('check-btn', `${savedTheme}-button`);
-        toDoDiv.appendChild(checked);
+        // const checked = document.createElement('button');
+        // checked.innerHTML = '<i class="fas fa-check"></i>';
+        // checked.classList.add('check-btn', `${savedTheme}-button`);
+        // toDoDiv.appendChild(checked);
         // delete btn;
         const deleted = document.createElement('button');
         deleted.innerHTML = '<i class="fas fa-trash"></i>';
@@ -215,14 +215,16 @@ var x = setInterval(function() {
   var distance = countDownDate - now;
 
   // Time calculations for days, hours, minutes and seconds
-  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  // var days = Math.floor(distance / (1000 * 60 * 60 * 24));
   var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
   var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
   var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
+  let secString = String(seconds).padStart(2, '0');
+  let minString = String(minutes).padStart(2, '0');
   // Display the result in the element with id="demo"
-  document.getElementById("demo").innerHTML = days + "d " + hours + "h "
-  + minutes + "m " + seconds + "s ";
+  document.getElementById("demo").innerHTML = hours + ":"
+  + minutes + ":" + secString ;
 
   // If the count down is finished, write some text
   if (distance < 0) {
