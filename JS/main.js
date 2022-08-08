@@ -213,8 +213,20 @@ function changeTheme(color) {
     });
 }
 
+const hourReset = 5;
+const oneMinute = 60000;
+const hourResetTime = hourReset * 60 * oneMinute
+let timeDuration = hourResetTime;
+
+function getNextReset() {
+    return new Date(Date.now() + hourReset*60*oneMinute).getTime();
+}
+
+function getNextByDuration() {
+    return new Date(Date.now() + timeDuration).getTime();
+}
 // Set the date we're counting down to
-let countDownDate = new Date("Aug 9, 2023 15:37:25").getTime();
+let countDownDate = getNextReset();
 
 let interval = null;
 let countDownFunc = function() {
@@ -224,7 +236,7 @@ let countDownFunc = function() {
 
   // Find the distance between now and the count down date
   let distance = countDownDate - now;
-
+  timeDuration = distance;
   // Time calculations for days, hours, minutes and seconds
   // let days = Math.floor(distance / (1000 * 60 * 60 * 24));
   let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -250,14 +262,14 @@ function stopInterval() {
 
 function startInterval() {
     stopInterval()
+    countDownDate = getNextByDuration();
     document.getElementById("title").innerHTML = "Time left:";
     interval = setInterval(countDownFunc, 1000);
 }
 
-const oneMinute = 60000;
 function resetInterval() {
-    const hourReset = 5
-    countDownDate = new Date(Date.now() + hourReset*60*oneMinute).getTime();
+    countDownDate = getNextReset();
+    timeDuration = hourResetTime;
     document.getElementById("demo").innerHTML = `${hourReset}:00:00`
     console.log(countDownDate)
 }
