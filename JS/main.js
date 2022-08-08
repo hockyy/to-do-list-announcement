@@ -80,6 +80,7 @@ function addToDo(event) {
 
         // CLearing the input;
         toDoInput.value = '';
+        toDoInput2.value = '';
     }
 
 }   
