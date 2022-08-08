@@ -66,12 +66,6 @@ function addToDo(event) {
         // Adding to local storage;
         savelocal(toDoInput.value);
 
-        // check btn;
-        // const checked = document.createElement('button');
-        // checked.innerHTML = '<i class="fas fa-check"></i>';
-        // checked.classList.add('check-btn', `${savedTheme}-button`);
-        // toDoDiv.appendChild(checked);
-        // delete btn;
         const deleted = document.createElement('button');
         deleted.innerHTML = '<i class="fas fa-trash"></i>';
         deleted.classList.add('delete-btn', `${savedTheme}-button`);
@@ -156,11 +150,6 @@ function getTodos() {
         newToDo.classList.add('todo-item');
         toDoDiv.appendChild(newToDo);
 
-        // check btn;
-        const checked = document.createElement('button');
-        checked.innerHTML = '<i class="fas fa-check"></i>';
-        checked.classList.add("check-btn", `${savedTheme}-button`);
-        toDoDiv.appendChild(checked);
         // delete btn;
         const deleted = document.createElement('button');
         deleted.innerHTML = '<i class="fas fa-trash"></i>';
