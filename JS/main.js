@@ -36,7 +36,7 @@ pauseState === null ?
 function changePauseState(condition) {
     // condition.preventDefault()
     // event.preventDefault();
-    console.log(condition)
+    // console.log(condition)
     localStorage.setItem('pauseState', condition);
     pauseState = localStorage.getItem('pauseState');
 }
@@ -254,7 +254,7 @@ let countDownFunc = function() {
   if (distance < 0) {
     document.getElementById("demo").innerHTML = "0:00:00";
   }
-  console.log(countDownDate)
+  // console.log(countDownDate)
 }
 
 function stopInterval() {
