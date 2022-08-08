@@ -92,7 +92,6 @@ body {
 #title {
     white-space: pre;
     overflow: hidden;     
-    margin-bottom: 20px;
   }
   
 
@@ -280,7 +279,7 @@ form button {
     padding: 7px;
     /* word-wrap: break-word; */
     /* flex-wrap: wrap; */
-    font-size: 40px;
+    font-size: 25px;
     flex: 1; /* To push the trash and the check button to the right */
     border-radius: 30px;
 
@@ -306,7 +305,7 @@ form button {
 }
 
 .todo-item {
-    padding: 0rem 0.5rem;
+    padding: 0rem 0.1rem;
 }
 
 .fa-trash, .fa-check { 
@@ -343,8 +342,8 @@ form button {
         animation: 
             animated-text 3s steps(16,end) 0.5s 1 normal both,
             animated-cursor 750ms steps(16,end) infinite;
-        margin-bottom: 10px;
-        margin-top: 30px;
+        margin-bottom: 5px;
+        margin-top: 5px;
         max-width: 330px;
     }
 }
