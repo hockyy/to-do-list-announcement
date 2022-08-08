@@ -24,7 +24,7 @@
 <body>
 
 <div id="header">
-    <div id="date-time" style="font-size: 40px; font-weight: 600; font-family: 'Arial';">Current time: </div>
+    <!-- <div id="date-time" style="font-size: 40px; font-weight: 600; font-family: 'Arial';">Current time: </div> -->
     <div style="display:flex; flex-direction:column; justify-content: center; align-items: center;">
         <!-- <img   src="./assets/ColorLogo.png" height="150px"> -->
         <h6 id="title" style="margin-bottom: -5px;">Time left: (paused)
@@ -122,11 +122,11 @@
             modal.style.display = "none";
         }
     }
-    setInterval(()=>{
-        var today = (new Date());
-        var time = today.getHours() + ":" + String(today.getMinutes()).padStart(2, '0') + ":" + String(today.getSeconds()).padStart(2, '0');
-        document.getElementById('date-time').innerHTML=`Current Time: ${time}`;
-    }, 5)
+    // setInterval(()=>{
+    //     var today = (new Date());
+    //     var time = today.getHours() + ":" + String(today.getMinutes()).padStart(2, '0') + ":" + String(today.getSeconds()).padStart(2, '0');
+    //     document.getElementById('date-time').innerHTML=`Current Time: ${time}`;
+    // }, 5)
     
 
 </script>
