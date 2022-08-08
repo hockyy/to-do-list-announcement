@@ -90,7 +90,10 @@ body {
 
 /* Animation */
 #title {
-    white-space: pre;
+    overflow: hidden;     
+  }
+
+.title-class {
     overflow: hidden;     
   }
 
@@ -285,7 +288,9 @@ form button {
     padding: 7px;
     /* word-wrap: break-word; */
     /* flex-wrap: wrap; */
-    font-size: 25px;
+    font-size: 40px;
+    font-weight: 600;
+    font-family: "Arial";
     flex: 1; /* To push the trash and the check button to the right */
     border-radius: 30px;
 

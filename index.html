@@ -10,7 +10,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300&display=swap" rel="stylesheet">
 
     <!-- font awesome (https://fontawesome.com) for basic icons; source: https://cdnjs.com/libraries/font-awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css" integrity="sha256-46r060N2LrChLLb5zowXQ72/iKKNiw/lAmygmHExk/o=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css"
+          integrity="sha256-46r060N2LrChLLb5zowXQ72/iKKNiw/lAmygmHExk/o=" crossorigin="anonymous"/>
 
     <link rel="shortcut icon" type="image/png" href="assets/favicon.png"/>
     <link rel="stylesheet" href="CSS/main.css">
@@ -22,35 +23,38 @@
 
 <body>
 
-    <div id = "header">
-        <div style="display:flex; flex-direction:column; justify-content: center; align-items: center;"><img src="./assets/ColorLogo.png" height="150px">
-        <h6 id="title" style="margin-bottom: -5px;">Time left: (paused)<div id="border"></div></h6>
-        </div>
-    
-        <h1 id="demo" style="text-align: center;">5:00:00</h1>
-        <div class="flexrow-container" style="display: none;">
-            <div class="standard-theme theme-selector"></div>
-            <div class="light-theme theme-selector"></div>
-            <div class="darker-theme theme-selector"></div>
-        </div>
-        
+<div id="header">
+    <div style="display:flex; flex-direction:column; justify-content: center; align-items: center;">
+        <!-- <img   src="./assets/ColorLogo.png" height="150px"> -->
+        <h6 id="title" style="margin-bottom: -5px;">Time left: (paused)
+            <div id="border"></div>
+        </h6>
     </div>
 
-    <h1 id="title" style="margin-bottom: 10px;">Announcement</h1>
-
-
-    <div id="myUnOrdList">
-
-        <ul class="todo-list">
-        </ul>
+    <h1 id="demo" style="text-align: center;">5:00:00</h1>
+    <div class="flexrow-container" style="display: none;">
+        <div class="standard-theme theme-selector"></div>
+        <div class="light-theme theme-selector"></div>
+        <div class="darker-theme theme-selector"></div>
     </div>
 
-    <button id="myBtn" style="margin-top: 30px;"class="standard-button ctrl-btn">Add Announcement</button>
-    
-    <div id="myModal" class="modal">
+</div>
 
-      <!-- Modal content -->
-      <div class="modal-content">
+<h1 id="title-class" style="margin-bottom: 10px;">Announcement</h1>
+
+
+<div id="myUnOrdList">
+
+    <ul class="todo-list">
+    </ul>
+</div>
+
+<button id="myBtn" style="margin-top: 30px; margin-bottom:20px" class="standard-button ctrl-btn">Config</button>
+
+<div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content" style="text-align:center; align-items:center; justify-content: center;">
         <span class="close">&times;</span>
         <div id="form">
             <form>
@@ -59,61 +63,59 @@
                 <button id="form3" class="todo-btn" type="submit">Submit</button>
             </form>
         </div>
-      </div>
+        <div style="margin-top: 50px; display: flex; flex-direction: row; justify-content: center">
+            <button class="standard-button ctrl-btn" id="stop-time-button">Pause</button>
+            <button class="standard-button ctrl-btn" id="start-time-button">Continue</button>
+            <button class="standard-button ctrl-btn" id="reset-time-button">Reset</button>
+        </div>
+        <div id="time-form">
 
+            <input id="time-input" type="datetime-local" step="1">
+            <button class="standard-button ctrl-btn" id="set-date-button">Change To Date</button>
+            <button class="standard-button ctrl-btn" id="refresh-date-button" type="submit">Refresh Date</button>
+        </div>
     </div>
 
-<div style="margin-top: 50px; display: flex; flex-direction: row;"><button class="standard-button ctrl-btn" id="stop-time-button">Pause</button>
-        <button class="standard-button ctrl-btn" id="start-time-button">Continue</button>
-        <button class="standard-button ctrl-btn" id="reset-time-button">Reset</button>
-    </div>
-  
-        
 
-  <div id="time-form">
-
-        <input id="time-input" type="datetime-local" step="1">
-        <button   class="standard-button ctrl-btn" id="set-date-button" type="submit">Change To Date</button>
-    </div>
-
-    <script src="JS/main.js" type="text/javascript"> </script>
-    <script>
-// Get the modal
-var modal = document.getElementById("myModal");
-
-// Get the button that opens the modal
-var btn = document.getElementById("myBtn");
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
+</div>
 
 
+<script src="JS/main.js" type="text/javascript"></script>
+<script>
+    // Get the modal
+    var modal = document.getElementById("myModal");
 
-// When the user clicks the button, open the modal 
-btn.onclick = function() {
-  modal.style.display = "block";
-}
+    // Get the button that opens the modal
+    var btn = document.getElementById("myBtn");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
 
 
+    // When the user clicks the button, open the modal
+    btn.onclick = function () {
+        modal.style.display = "block";
+    }
 
-var e = new KeyboardEvent("keydown", {
-    key: "Escape",
-    bubbles: true,
-    cancelable: true
-});
-document.dispatchEvent(e);
 
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-  modal.style.display = "none";
-}
+    var e = new KeyboardEvent("keydown", {
+        key: "Escape",
+        bubbles: true,
+        cancelable: true
+    });
+    document.dispatchEvent(e);
 
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-}
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
 
 </script>
 </body>

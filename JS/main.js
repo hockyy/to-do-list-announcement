@@ -11,6 +11,7 @@ const stopBtn = document.querySelector('#stop-time-button');
 const startBtn = document.querySelector('#start-time-button');
 const resetBtn = document.querySelector('#reset-time-button');
 const setDateBtn = document.querySelector('#set-date-button');
+const refreshDateBtn = document.querySelector("#refresh-date-button")
 const announcementBtn = document.querySelector("#myBtn");
 
 
@@ -28,6 +29,7 @@ startBtn.addEventListener('click', () => startInterval());
 resetBtn.addEventListener('click', ()=>resetInterval());
 setDateBtn.addEventListener('click', ()=>setDate());
 announcementBtn.addEventListener('click', ()=>resetTimeAnnouncement())
+refreshDateBtn.addEventListener('click', ()=>refreshDate())
 
 let pauseState = localStorage.getItem('pauseState');
 pauseState === null ?
@@ -242,7 +244,11 @@ function resetTimeAnnouncement () {
     console.log(nextTime);
 }
 
-document.getElementById('time-input').value = (new Date(Date.now() + hourResetTime + offsetTime)).toISOString().slice(0, 16);
+function refreshDate () {
+    document.getElementById('time-input').value = (new Date(Date.now() + hourResetTime + offsetTime)).toISOString().slice(0, 19);
+}
+
+refreshDate()
 
 let countDownFunc = function() {
 
