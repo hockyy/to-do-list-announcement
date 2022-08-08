@@ -259,7 +259,7 @@ form button {
     margin: 1rem;
     /* background: rgb(247, 226, 223); */
     /* color: black; */
-    font-size: 19px;
+    font-size: 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -285,7 +285,7 @@ form button {
     padding: 7px;
     /* word-wrap: break-word; */
     /* flex-wrap: wrap; */
-    font-size: 20px;
+    font-size: 40px;
     flex: 1; /* To push the trash and the check button to the right */
     border-radius: 30px;
 
