@@ -284,7 +284,7 @@ function startInterval() {
     stopInterval()
     countDownDate = getNextByDuration();
     document.getElementById("title").innerHTML = "Time left:";
-    interval = setInterval(countDownFunc, 1000);
+    interval = setInterval(countDownFunc, 5);
 }
 
 function resetInterval() {
