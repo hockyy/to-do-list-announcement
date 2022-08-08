@@ -10,6 +10,7 @@ const darkerTheme = document.querySelector('.darker-theme');
 const stopBtn = document.querySelector('#stop-time-button');
 const startBtn = document.querySelector('#start-time-button');
 const resetBtn = document.querySelector('#reset-time-button');
+const setDateBtn = document.querySelector('#set-date-button');
 
 
 // Event Listeners
@@ -24,6 +25,7 @@ darkerTheme.addEventListener('click', () => changeTheme('darker'));
 stopBtn.addEventListener('click', () => stopInterval());
 startBtn.addEventListener('click', () => startInterval());
 resetBtn.addEventListener('click', ()=>resetInterval());
+setDateBtn.addEventListener('click', ()=>setDate())
 
 let pauseState = localStorage.getItem('pauseState');
 pauseState === null ?
@@ -229,6 +231,7 @@ function getNextByDuration() {
 let countDownDate = getNextReset();
 
 let interval = null;
+
 let countDownFunc = function() {
 
   // Get today's date and time
@@ -242,7 +245,6 @@ let countDownFunc = function() {
   let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
   let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
   let seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
   let secString = String(seconds).padStart(2, '0');
   let minString = String(minutes).padStart(2, '0');
     document.getElementById("demo").innerHTML = hours + ":"
@@ -272,4 +274,13 @@ function resetInterval() {
     timeDuration = hourResetTime;
     document.getElementById("demo").innerHTML = `${hourReset}:00:00`
     console.log(countDownDate)
+}
+
+function setDate() {
+    console.log("here")
+    const timeElem = document.querySelector("#time-input").value
+    if(!timeElem) futureTime = getNextReset()
+    else futureTime = new Date(timeElem)
+    countDownDate = futureTime
+    countDownFunc()
 }
