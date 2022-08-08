@@ -27,8 +27,8 @@
             <div class="light-theme theme-selector"></div>
             <div class="darker-theme theme-selector"></div>
         </div>
-        <h4 id="title">Time left:<div id="border"></div></h4>
-        <h1 id="demo" style="text-align: center;"></h1>
+        <h4 id="title">Time left: (paused)<div id="border"></div></h4>
+        <h1 id="demo" style="text-align: center;">5:00:00</h1>
     </div>
 
     <h1 id="title">Announcement:</h1>
@@ -44,13 +44,16 @@
             <button class="todo-btn" type="submit">I Got This!</button>
         </form>
     </div>
+    <div style="display: flex; flex-direction: row;"><button class="standard-button ctrl-btn" id="stop-time-button">Stop</button>
+        <button class="standard-button ctrl-btn" id="start-time-button">Start</button>
+        <button class="standard-button ctrl-btn" id="reset-time-button">Reset</button>
+    </div>
+        
 
   <div id="time-form">
-        <input id="time-input" type="datetime-local">
 
-        <button id="stop-time-button">Stop</button>
-        <button id="start-time-button">Start</button>
-        <button id="reset-time-button">Reset</button>
+
+        <input id="time-input" type="datetime-local">
         <button class="todo-btn" type="submit">Change To Date</button>
     </div>
 

@@ -20,8 +20,9 @@ document.addEventListener("DOMContentLoaded", getTodos);
 standardTheme.addEventListener('click', () => changeTheme('standard'));
 lightTheme.addEventListener('click', () => changeTheme('light'));
 darkerTheme.addEventListener('click', () => changeTheme('darker'));
-stopBtn.addEventListener('click', ()=>changePauseState(true));
-startBtn.addEventListener('click', ()=>changePauseState(false));
+stopBtn.addEventListener('click', () => stopInterval());
+startBtn.addEventListener('click', () => startInterval());
+resetBtn.addEventListener('click', ()=>resetInterval());
 
 let pauseState = localStorage.getItem('pauseState');
 pauseState === null ?
@@ -212,8 +213,9 @@ function changeTheme(color) {
 }
 
 // Set the date we're counting down to
-let countDownDate = new Date("Aug 9, 2020 15:37:25").getTime();
+let countDownDate = new Date("Aug 9, 2023 15:37:25").getTime();
 
+let interval = null;
 let countDownFunc = function() {
 
   // Get today's date and time
@@ -230,16 +232,31 @@ let countDownFunc = function() {
 
   let secString = String(seconds).padStart(2, '0');
   let minString = String(minutes).padStart(2, '0');
-  if(pauseState) {
-      document.getElementById("demo").innerHTML = hours + ":"
+    document.getElementById("demo").innerHTML = hours + ":"
       + minString + ":" + secString ;
-  }
 
   // If the count down is finished, write some text
   if (distance < 0) {
-    document.getElementById("demo").innerHTML = "COUNTDOWN ENDS";
+    document.getElementById("demo").innerHTML = "0:00:00";
   }
+  console.log(countDownDate)
 }
 
-// Update the count down every 1 second
-let x = setInterval(countDownFunc, 1000);
+function stopInterval() {
+    clearInterval(interval);
+    document.getElementById("title").innerHTML = "Time left: (paused)";
+}
+
+function startInterval() {
+    stopInterval()
+    document.getElementById("title").innerHTML = "Time left:";
+    interval = setInterval(countDownFunc, 1000);
+}
+
+const oneMinute = 60000;
+function resetInterval() {
+    const hourReset = 5
+    countDownDate = new Date(Date.now() + hourReset*60*oneMinute).getTime();
+    document.getElementById("demo").innerHTML = `${hourReset}:00:00`
+    console.log(countDownDate)
+}

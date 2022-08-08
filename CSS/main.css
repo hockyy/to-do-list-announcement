@@ -278,6 +278,14 @@ form button {
     margin: 0 5px;
 }
 
+.ctrl-btn {
+    margin: 5px;
+    padding: 10px;
+    font-size: 17px;
+    border-radius: 10px;
+    min-width: 100px;
+}
+
 .todo-item {
     padding: 0rem 0.5rem;
 }
