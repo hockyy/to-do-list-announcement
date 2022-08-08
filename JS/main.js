@@ -1,5 +1,6 @@
 // Selectors
 
+const hourReset = 5;
 const toDoInput = document.querySelector('.todo-input');
 const toDoInput2 = document.querySelector('.todo-input-2');
 const toDoBtn = document.querySelector('.todo-btn');
@@ -220,7 +221,6 @@ function changeTheme(color) {
     });
 }
 
-const hourReset = 5;
 const oneMinute = 60000;
 const hourResetTime = hourReset * 60 * oneMinute
 let timeDuration = hourResetTime;
@@ -315,3 +315,5 @@ document.addEventListener('keydown', function(e) {
         }
     }
 }); 
+
+resetInterval();
