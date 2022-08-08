@@ -24,6 +24,7 @@
 <body>
 
 <div id="header">
+    <div id="date-time" style="font-size: 20px;">Current time: </div>
     <div style="display:flex; flex-direction:column; justify-content: center; align-items: center;">
         <!-- <img   src="./assets/ColorLogo.png" height="150px"> -->
         <h6 id="title" style="margin-bottom: -5px;">Time left: (paused)
@@ -87,6 +88,7 @@
 
     // Get the button that opens the modal
     var btn = document.getElementById("myBtn");
+    let submitBtn = document.getElementById("form3");
 
     // Get the <span> element that closes the modal
     var span = document.getElementsByClassName("close")[0];
@@ -110,12 +112,22 @@
         modal.style.display = "none";
     }
 
+    submitBtn.onclick = function () {
+        modal.style.display = "none";
+    }
+
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function (event) {
         if (event.target == modal) {
             modal.style.display = "none";
         }
     }
+    setInterval(()=>{
+        var today = (new Date());
+        var time = today.getHours() + ":" + String(today.getMinutes()).padStart(2, '0') + ":" + String(today.getSeconds()).padStart(2, '0');
+        document.getElementById('date-time').innerHTML=`Current Time: ${time}`;
+    }, 1000)
+    
 
 </script>
 </body>
