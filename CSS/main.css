@@ -121,7 +121,7 @@ form {
     outline: none;
     border-top-right-radius: 17px;
     border-bottom-right-radius: 17px;
-    max-width: 100px;
+    width: 500px;
 }
 
 #form2 {
@@ -129,6 +129,18 @@ form {
     font-size: 17px;
     border: none;
     outline: none;
+    border-top-left-radius: 17px;
+    border-bottom-left-radius: 17px;
+    max-width: 300px;
+}
+
+#form3 {
+    padding: 10px;
+    font-size: 17px;
+    border: none;
+    outline: none;
+    border-top-right-radius: 17px;
+    border-bottom-right-radius: 17px;
     border-top-left-radius: 17px;
     border-bottom-left-radius: 17px;
     max-width: 100px;
