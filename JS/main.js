@@ -1,6 +1,7 @@
 // Selectors
 
 const toDoInput = document.querySelector('.todo-input');
+const toDoInput2 = document.querySelector('.todo-input-2');
 const toDoBtn = document.querySelector('.todo-btn');
 const toDoList = document.querySelector('.todo-list');
 const standardTheme = document.querySelector('.standard-theme');
@@ -59,13 +60,13 @@ function addToDo(event) {
             alert("You must write something!");
         } 
     else {
-        // newToDo.innerText = "hey";
-        newToDo.innerText = toDoInput.value;
+        var val = toDoInput2.value.slice(0, 5) + " - " + toDoInput.value
+        newToDo.innerText = val;
         newToDo.classList.add('todo-item');
         toDoDiv.appendChild(newToDo);
 
         // Adding to local storage;
-        savelocal(toDoInput.value);
+        savelocal(val);
 
         const deleted = document.createElement('button');
         deleted.innerHTML = '<i class="fas fa-trash"></i>';

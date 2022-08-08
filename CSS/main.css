@@ -114,17 +114,24 @@ form {
     width: 100%;
 }
 
-form input {
+#form1 {
     padding: 10px;
     font-size: 17px;
     border: none;
     outline: none;
-    /* border-radius: 15; */
+    border-top-right-radius: 17px;
+    border-bottom-right-radius: 17px;
+    max-width: 100px;
+}
+
+#form2 {
+    padding: 10px;
+    font-size: 17px;
+    border: none;
+    outline: none;
     border-top-left-radius: 17px;
     border-bottom-left-radius: 17px;
-    max-width: 500px;
-    transition: background-color 200ms ease-in-out;
-    width: 100%;
+    max-width: 100px;
 }
 
 /* Input themes */
