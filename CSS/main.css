@@ -35,7 +35,6 @@ body {
 }
 
 #header, #form, #datetime {
-    margin: 0 1rem;
     min-height: 10vh;
     width: 100%;
 }
@@ -91,13 +90,9 @@ body {
 
 /* Animation */
 #title {
-    /*border-right: solid 3px rgba(0, 0, 0, 0.75);*/
     white-space: pre;
     overflow: hidden;     
-    letter-spacing: 0.20rem;
-    margin-top: 50px;
     margin-bottom: 20px;
-    max-width: 480px;
   }
   
 
