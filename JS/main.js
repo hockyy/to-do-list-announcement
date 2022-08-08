@@ -6,6 +6,9 @@ const toDoList = document.querySelector('.todo-list');
 const standardTheme = document.querySelector('.standard-theme');
 const lightTheme = document.querySelector('.light-theme');
 const darkerTheme = document.querySelector('.darker-theme');
+const stopBtn = document.querySelector('#stop-time-button');
+const startBtn = document.querySelector('#start-time-button');
+const resetBtn = document.querySelector('#reset-time-button');
 
 
 // Event Listeners
@@ -13,9 +16,26 @@ const darkerTheme = document.querySelector('.darker-theme');
 toDoBtn.addEventListener('click', addToDo);
 toDoList.addEventListener('click', deletecheck);
 document.addEventListener("DOMContentLoaded", getTodos);
+
 standardTheme.addEventListener('click', () => changeTheme('standard'));
 lightTheme.addEventListener('click', () => changeTheme('light'));
 darkerTheme.addEventListener('click', () => changeTheme('darker'));
+stopBtn.addEventListener('click', ()=>changePauseState(true));
+startBtn.addEventListener('click', ()=>changePauseState(false));
+
+let pauseState = localStorage.getItem('pauseState');
+pauseState === null ?
+    changePauseState(true)
+    : changePauseState(localStorage.getItem('pauseState'));
+
+// Change pause state
+function changePauseState(condition) {
+    // condition.preventDefault()
+    // event.preventDefault();
+    console.log(condition)
+    localStorage.setItem('pauseState', condition);
+    pauseState = localStorage.getItem('pauseState');
+}
 
 // Check if one theme has been set previously and apply it (or std theme if not found):
 let savedTheme = localStorage.getItem('savedTheme');
@@ -223,12 +243,14 @@ var x = setInterval(function() {
   let secString = String(seconds).padStart(2, '0');
   let minString = String(minutes).padStart(2, '0');
   // Display the result in the element with id="demo"
-  document.getElementById("demo").innerHTML = hours + ":"
-  + minutes + ":" + secString ;
+  if(!pauseState) {
+      document.getElementById("demo").innerHTML = hours + ":"
+      + minutes + ":" + secString ;
+  }
 
   // If the count down is finished, write some text
   if (distance < 0) {
     clearInterval(x);
-    document.getElementById("demo").innerHTML = "EXPIRED";
+    document.getElementById("demo").innerHTML = "COUNTDOWN ENDS";
   }
 }, 1000);
