@@ -21,8 +21,12 @@
 </head>
 
 <body>
+
     <div id = "header">
-        <h6 id="title">Time left: (paused)<div id="border"></div></h6>
+        <div style="display:flex; flex-direction:column; justify-content: center; align-items: center;"><img src="./assets/ColorLogo.png" width="150px">
+        <h6 id="title" style="margin: 10px;">Time left: (paused)<div id="border"></div></h6>
+        </div>
+    
         <h1 id="demo" style="text-align: center;">5:00:00</h1>
         <div class="flexrow-container" style="display: none;">
             <div class="standard-theme theme-selector"></div>
@@ -31,7 +35,6 @@
         </div>
         
     </div>
-
 
     <h1 id="title">Announcement</h1>
     <button id="myBtn" class="standard-button ctrl-btn">Add Announcement</button>
@@ -51,7 +54,7 @@
         <span class="close">&times;</span>
         <div id="form">
             <form>
-                <input id="form2" class="todo-input-2" type="time" >
+                <input id="form2" class="todo-input-2" type="time">
                 <input id="form1" class="todo-input" type="text" placeholder="Add an announcement">
                 <button id="form3" class="todo-btn" type="submit">Submit</button>
             </form>
