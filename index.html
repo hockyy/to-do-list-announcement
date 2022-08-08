@@ -23,8 +23,8 @@
 <body>
 
     <div id = "header">
-        <div style="display:flex; flex-direction:column; justify-content: center; align-items: center;"><img src="./assets/ColorLogo.png" width="150px">
-        <h6 id="title" style="margin: 10px;">Time left: (paused)<div id="border"></div></h6>
+        <div style="display:flex; flex-direction:column; justify-content: center; align-items: center;"><img src="./assets/ColorLogo.png" height="150px">
+        <h6 id="title" style="margin-bottom: -5px;">Time left: (paused)<div id="border"></div></h6>
         </div>
     
         <h1 id="demo" style="text-align: center;">5:00:00</h1>
@@ -36,8 +36,7 @@
         
     </div>
 
-    <h1 id="title">Announcement</h1>
-    <button id="myBtn" class="standard-button ctrl-btn">Add Announcement</button>
+    <h1 id="title" style="margin-bottom: 10px;">Announcement</h1>
 
 
     <div id="myUnOrdList">
@@ -46,6 +45,7 @@
         </ul>
     </div>
 
+    <button id="myBtn" style="margin-top: 30px;"class="standard-button ctrl-btn">Add Announcement</button>
     
     <div id="myModal" class="modal">
 
@@ -63,7 +63,7 @@
 
     </div>
 
-<div style="display: flex; flex-direction: row;"><button class="standard-button ctrl-btn" id="stop-time-button">Pause</button>
+<div style="margin-top: 50px; display: flex; flex-direction: row;"><button class="standard-button ctrl-btn" id="stop-time-button">Pause</button>
         <button class="standard-button ctrl-btn" id="start-time-button">Continue</button>
         <button class="standard-button ctrl-btn" id="reset-time-button">Reset</button>
     </div>
@@ -87,10 +87,21 @@ var btn = document.getElementById("myBtn");
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
 
+
+
 // When the user clicks the button, open the modal 
 btn.onclick = function() {
   modal.style.display = "block";
 }
+
+
+
+var e = new KeyboardEvent("keydown", {
+    key: "Escape",
+    bubbles: true,
+    cancelable: true
+});
+document.dispatchEvent(e);
 
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
@@ -103,6 +114,7 @@ window.onclick = function(event) {
     modal.style.display = "none";
   }
 }
+
 </script>
 </body>
 </html>

@@ -251,10 +251,12 @@ form button {
 
     /* To remove the bullets of unordered list */
     list-style: none;
+    display: flex;
+    flex-direction: column-reverse;
 }
 
 .todo {
-    margin: 1rem;
+    margin: 0.2em;
     /* background: rgb(247, 226, 223); */
     /* color: black; */
     font-size: 20px;

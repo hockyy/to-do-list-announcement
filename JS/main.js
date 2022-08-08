@@ -295,3 +295,16 @@ function setDate() {
     countDownDate = futureTime
     countDownFunc()
 }
+
+document.addEventListener('keydown', function(e) {
+    // console.log(e)
+    // console.log(modal.style.display)
+    resetTimeAnnouncement();
+    if(e.key == '`') {
+        if(modal.style.display === "none") {
+            modal.style.display = "block";
+        } else {
+            modal.style.display = "none";
+        }
+    }
+}); 
