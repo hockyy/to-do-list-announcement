@@ -28,24 +28,11 @@ lightTheme.addEventListener('click', () => changeTheme('light'));
 darkerTheme.addEventListener('click', () => changeTheme('darker'));
 stopBtn.addEventListener('click', () => stopInterval());
 startBtn.addEventListener('click', () => startInterval());
-resetBtn.addEventListener('click', ()=>resetInterval());
-setDateBtn.addEventListener('click', ()=>setDate());
-announcementBtn.addEventListener('click', ()=>resetTimeAnnouncement())
-refreshDateBtn.addEventListener('click', ()=>refreshDate())
+resetBtn.addEventListener('click', () => resetInterval());
+setDateBtn.addEventListener('click', () => setDate());
+announcementBtn.addEventListener('click', () => resetTimeAnnouncement())
+refreshDateBtn.addEventListener('click', () => refreshDate())
 
-let pauseState = localStorage.getItem('pauseState');
-pauseState === null ?
-    changePauseState(true)
-    : changePauseState(localStorage.getItem('pauseState'));
-
-// Change pause state
-function changePauseState(condition) {
-    // condition.preventDefault()
-    // event.preventDefault();
-    // console.log(condition)
-    localStorage.setItem('pauseState', condition);
-    pauseState = localStorage.getItem('pauseState');
-}
 
 // Check if one theme has been set previously and apply it (or std theme if not found):
 let savedTheme = localStorage.getItem('savedTheme');
@@ -65,9 +52,8 @@ function addToDo(event) {
     // Create LI
     const newToDo = document.createElement('li');
     if (toDoInput.value === '') {
-            alert("You must write something!");
-        } 
-    else {
+        alert("You must write something!");
+    } else {
         var val = toDoInput2.value.slice(0, 5) + " - " + toDoInput.value
         newToDo.innerText = val;
         newToDo.classList.add('todo-item');
@@ -89,17 +75,16 @@ function addToDo(event) {
         toDoInput2.value = '';
     }
 
-}   
+}
 
 
-function deletecheck(event){
+function deletecheck(event) {
 
     // console.log(event.target);
     const item = event.target;
 
     // delete
-    if(item.classList[0] === 'delete-btn')
-    {
+    if (item.classList[0] === 'delete-btn') {
         // item.parentElement.remove();
         // animation
         item.parentElement.classList.add("fall");
@@ -107,87 +92,93 @@ function deletecheck(event){
         //removing local todos;
         removeLocalTodos(item.parentElement);
 
-        item.parentElement.addEventListener('transitionend', function(){
+        item.parentElement.addEventListener('transitionend', function () {
             item.parentElement.remove();
         })
     }
 
     // check
-    if(item.classList[0] === 'check-btn')
-    {
+    if (item.classList[0] === 'check-btn') {
         item.parentElement.classList.toggle("completed");
     }
 
 
 }
 
-
-// Saving to local storage:
-function savelocal(todo){
-    //Check: if item/s are there;
-    let todos;
-    if(localStorage.getItem('todos') === null) {
-        todos = [];
-    }
-    else {
-        todos = JSON.parse(localStorage.getItem('todos'));
-    }
-
-    todos.push(todo);
-    localStorage.setItem('todos', JSON.stringify(todos));
+async function fetchAsync(url) {
+    let response = await fetch(url);
+    let data = await response.json();
+    return data;
 }
 
+const url_backend = "http://35.240.148.140"
+const add_backend = "http://35.240.148.140/add/"
+const del_backend = "http://35.240.148.140/del/"
+let todos = {}
 
+// Saving to local storage:
+function savelocal(todo) {
+    fetchAsync(add_backend + todo).then(resp => {
+        return resp
+    })
+}
+
+async function grabRemote() {
+    return await fetchAsync(url_backend).then(resp => {
+        return resp
+    })
+}
 
 function getTodos() {
     //Check: if item/s are there;
-    let todos;
-    if(localStorage.getItem('todos') === null) {
-        todos = [];
-    }
-    else {
-        todos = JSON.parse(localStorage.getItem('todos'));
-    }
+    fetchAsync(url_backend).then(resp => {
+        console.log(resp)
+        console.log(todos)
+        if ( JSON.stringify(resp) !== JSON.stringify(todos)) {
+            toDoList.innerHTML = ""
+            for (const [key, value] of Object.entries(resp)) {
+                console.log(key, value);
+                // toDo DIV;
+                const toDoDiv = document.createElement("div");
+                toDoDiv.classList.add("todo", `${savedTheme}-todo`);
+                //
+                //     // Create LI
+                const newToDo = document.createElement('li');
+                //
+                newToDo.innerText = value;
+                newToDo.classList.add('todo-item');
+                toDoDiv.appendChild(newToDo);
+                //
+                //     // delete btn;
+                const deleted = document.createElement('button');
+                deleted.innerHTML = '<i class="fas fa-trash"></i>';
+                deleted.classList.add("delete-btn", `${savedTheme}-button`);
+                toDoDiv.appendChild(deleted);
+                //
+                //     // Append to list;
+                toDoList.appendChild(toDoDiv);
+            }
+            todos = resp
+        }
 
-    todos.forEach(function(todo) {
-        // toDo DIV;
-        const toDoDiv = document.createElement("div");
-        toDoDiv.classList.add("todo", `${savedTheme}-todo`);
-
-        // Create LI
-        const newToDo = document.createElement('li');
-        
-        newToDo.innerText = todo;
-        newToDo.classList.add('todo-item');
-        toDoDiv.appendChild(newToDo);
-
-        // delete btn;
-        const deleted = document.createElement('button');
-        deleted.innerHTML = '<i class="fas fa-trash"></i>';
-        deleted.classList.add("delete-btn", `${savedTheme}-button`);
-        toDoDiv.appendChild(deleted);
-
-        // Append to list;
-        toDoList.appendChild(toDoDiv);
-    });
+    })
 }
 
 
-function removeLocalTodos(todo){
-    //Check: if item/s are there;
-    let todos;
-    if(localStorage.getItem('todos') === null) {
-        todos = [];
-    }
-    else {
-        todos = JSON.parse(localStorage.getItem('todos'));
-    }
+function removeLocalTodos(todo) {
+    console.log(todo)
+    const text = todo.children[0].innerText
 
-    const todoIndex =  todos.indexOf(todo.children[0].innerText);
-    // console.log(todoIndex);
-    todos.splice(todoIndex, 1);
-    // console.log(todos);
-    localStorage.setItem('todos', JSON.stringify(todos));
+    fetchAsync(url_backend).then(resp => {
+        for (const [key, value] of Object.entries(resp)) {
+            if (value === text) {
+                fetchAsync(del_backend + key).then(resp => {
+                    console.log("OK")
+                })
+                break
+            }
+        }
+    })
 }
 
 // Change theme function:
@@ -197,14 +188,14 @@ function changeTheme(color) {
 
     document.body.className = color;
     // Change blinking cursor for darker theme:
-    color === 'darker' ? 
+    color === 'darker' ?
         document.getElementById('title').classList.add('darker-title')
         : document.getElementById('title').classList.remove('darker-title');
 
     document.querySelector('input').className = `${color}-input`;
     // Change todo color without changing their status (completed or not):
     document.querySelectorAll('.todo').forEach(todo => {
-        Array.from(todo.classList).some(item => item === 'completed') ? 
+        Array.from(todo.classList).some(item => item === 'completed') ?
             todo.className = `todo ${color}-todo completed`
             : todo.className = `todo ${color}-todo`;
     });
@@ -212,9 +203,9 @@ function changeTheme(color) {
     document.querySelectorAll('button').forEach(button => {
         Array.from(button.classList).some(item => {
             if (item === 'check-btn') {
-              button.className = `check-btn ${color}-button`;  
+                button.className = `check-btn ${color}-button`;
             } else if (item === 'delete-btn') {
-                button.className = `delete-btn ${color}-button`; 
+                button.className = `delete-btn ${color}-button`;
             } else if (item === 'todo-btn') {
                 button.className = `todo-btn ${color}-button`;
             }
@@ -227,6 +218,7 @@ const hourResetTime = hourReset * 60 * oneMinute
 let timeDuration = -1;
 const offset = -(new Date).getTimezoneOffset() / 60; // 7
 const offsetTime = offset * 60 * oneMinute
+
 function getNextReset() {
     // return new Date(Date.now() + hourResetTime).getTime();
     // console.log(new Date(IOIDate))
@@ -234,24 +226,25 @@ function getNextReset() {
 }
 
 function getNextByDuration() {
-    if(timeDuration !== -1) {
+    if (timeDuration !== -1) {
         return new Date(Date.now() + timeDuration).getTime();
     } else {
         return getNextReset();
     }
 }
+
 // Set the date we're counting down to
 let countDownDate = getNextReset();
 
 let interval = null;
 
-function resetTimeAnnouncement () {
+function resetTimeAnnouncement() {
     const nextTime = (new Date(Date.now() + offsetTime)).toISOString().slice(11, 16);
     document.getElementById("form2").value = nextTime;
     // console.log(nextTime);
 }
 
-function refreshDate () {
+function refreshDate() {
     // document.getElementById('time-input').value = (new Date(Date.now() + hourResetTime + offsetTime)).toISOString().slice(0, 19);
     const oldDate = new Date(IOIDate)
     const tmpRef = new Date(oldDate.getTime() + offsetTime).toISOString();
@@ -259,29 +252,29 @@ function refreshDate () {
 }
 
 
-let countDownFunc = function() {
+let countDownFunc = function () {
 
-  // Get today's date and time
-  let now = new Date().getTime();
+    // Get today's date and time
+    let now = new Date().getTime();
 
-  // Find the distance between now and the count down date
-  let distance = countDownDate - now;
-  timeDuration = distance;
-  // Time calculations for days, hours, minutes and seconds
-  // let days = Math.floor(distance / (1000 * 60 * 60 * 24));
-  let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-  let seconds = Math.floor((distance % (1000 * 60)) / 1000);
-  let secString = String(seconds).padStart(2, '0');
-  let minString = String(minutes).padStart(2, '0');
+    // Find the distance between now and the count down date
+    let distance = countDownDate - now;
+    timeDuration = distance;
+    // Time calculations for days, hours, minutes and seconds
+    // let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    let secString = String(seconds).padStart(2, '0');
+    let minString = String(minutes).padStart(2, '0');
     document.getElementById("demo").innerHTML = hours + ":"
-      + minString + ":" + secString ;
+        + minString + ":" + secString;
 
-  // If the count down is finished, write some text
-  if (distance < 0) {
-    document.getElementById("demo").innerHTML = "0:00:00";
-  }
-  // console.log(countDownDate)
+    // If the count down is finished, write some text
+    if (distance < 0) {
+        document.getElementById("demo").innerHTML = "0:00:00";
+    }
+    // console.log(countDownDate)
 }
 
 function stopInterval() {
@@ -306,18 +299,18 @@ function resetInterval() {
 function setDate() {
     // console.log("here")
     const timeElem = document.querySelector("#time-input").value
-    if(!timeElem) futureTime = getNextReset()
+    if (!timeElem) futureTime = getNextReset()
     else futureTime = new Date(timeElem)
     countDownDate = futureTime
     countDownFunc()
 }
 
-document.addEventListener('keydown', function(e) {
+document.addEventListener('keydown', function (e) {
     // console.log(e)
     // console.log(modal.style.display)
     resetTimeAnnouncement();
-    if(e.key == '`') {
-        if(modal.style.display === "none") {
+    if (e.key == '`') {
+        if (modal.style.display === "none") {
             modal.style.display = "block";
         } else {
             modal.style.display = "none";
@@ -328,3 +321,5 @@ document.addEventListener('keydown', function(e) {
 refreshDate();
 // resetInterval();
 startInterval();
+
+setInterval(getTodos, 1000)
