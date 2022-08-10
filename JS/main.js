@@ -1,5 +1,6 @@
 // Selectors
 
+const IOIDate = "2022-08-10T18:00:00"
 const hourReset = 5;
 const toDoInput = document.querySelector('.todo-input');
 const toDoInput2 = document.querySelector('.todo-input-2');
@@ -223,15 +224,21 @@ function changeTheme(color) {
 
 const oneMinute = 60000;
 const hourResetTime = hourReset * 60 * oneMinute
-let timeDuration = hourResetTime;
+let timeDuration = -1;
 const offset = -(new Date).getTimezoneOffset() / 60; // 7
 const offsetTime = offset * 60 * oneMinute
 function getNextReset() {
-    return new Date(Date.now() + hourResetTime).getTime();
+    // return new Date(Date.now() + hourResetTime).getTime();
+    // console.log(new Date(IOIDate))
+    return new Date(IOIDate).getTime()
 }
 
 function getNextByDuration() {
-    return new Date(Date.now() + timeDuration).getTime();
+    if(timeDuration !== -1) {
+        return new Date(Date.now() + timeDuration).getTime();
+    } else {
+        return getNextReset();
+    }
 }
 // Set the date we're counting down to
 let countDownDate = getNextReset();
@@ -241,14 +248,16 @@ let interval = null;
 function resetTimeAnnouncement () {
     const nextTime = (new Date(Date.now() + offsetTime)).toISOString().slice(11, 16);
     document.getElementById("form2").value = nextTime;
-    console.log(nextTime);
+    // console.log(nextTime);
 }
 
 function refreshDate () {
-    document.getElementById('time-input').value = (new Date(Date.now() + hourResetTime + offsetTime)).toISOString().slice(0, 19);
+    // document.getElementById('time-input').value = (new Date(Date.now() + hourResetTime + offsetTime)).toISOString().slice(0, 19);
+    const oldDate = new Date(IOIDate)
+    const tmpRef = new Date(oldDate.getTime() + offsetTime).toISOString();
+    document.getElementById('time-input').value = tmpRef.slice(0, 16);
 }
 
-refreshDate()
 
 let countDownFunc = function() {
 
@@ -289,7 +298,7 @@ function startInterval() {
 
 function resetInterval() {
     countDownDate = getNextReset();
-    timeDuration = hourResetTime;
+    // timeDuration = hourResetTime;
     document.getElementById("demo").innerHTML = `${hourReset}:00:00`
     // console.log(countDownDate)
 }
@@ -314,6 +323,8 @@ document.addEventListener('keydown', function(e) {
             modal.style.display = "none";
         }
     }
-}); 
+});
 
-resetInterval();
+refreshDate();
+// resetInterval();
+startInterval();
