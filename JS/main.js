@@ -1,7 +1,10 @@
 // Selectors
 
+const distanceLimit = 5 * 60 * 60000
+// const IOIDate = "2022-08-10T12:43:00"
 const IOIDate = "2022-08-10T18:00:00"
 const hourReset = 5;
+const oneMinute = 60000
 const toDoInput = document.querySelector('.todo-input');
 const toDoInput2 = document.querySelector('.todo-input-2');
 const toDoBtn = document.querySelector('.todo-btn');
@@ -132,12 +135,12 @@ async function grabRemote() {
 function getTodos() {
     //Check: if item/s are there;
     fetchAsync(url_backend).then(resp => {
-        console.log(resp)
-        console.log(todos)
+        // console.log(resp)
+        // console.log(todos)
         if ( JSON.stringify(resp) !== JSON.stringify(todos)) {
             toDoList.innerHTML = ""
             for (const [key, value] of Object.entries(resp)) {
-                console.log(key, value);
+                // console.log(key, value);
                 // toDo DIV;
                 const toDoDiv = document.createElement("div");
                 toDoDiv.classList.add("todo", `${savedTheme}-todo`);
@@ -166,14 +169,14 @@ function getTodos() {
 
 
 function removeLocalTodos(todo) {
-    console.log(todo)
+    // console.log(todo)
     const text = todo.children[0].innerText
 
     fetchAsync(url_backend).then(resp => {
         for (const [key, value] of Object.entries(resp)) {
             if (value === text) {
                 fetchAsync(del_backend + key).then(resp => {
-                    console.log("OK")
+                    // console.log("OK")
                 })
                 break
             }
@@ -213,7 +216,6 @@ function changeTheme(color) {
     });
 }
 
-const oneMinute = 60000;
 const hourResetTime = hourReset * 60 * oneMinute
 let timeDuration = -1;
 const offset = -(new Date).getTimezoneOffset() / 60; // 7
@@ -260,6 +262,8 @@ let countDownFunc = function () {
     // Find the distance between now and the count down date
     let distance = countDownDate - now;
     timeDuration = distance;
+    let notStart = distance > distanceLimit;
+    if(distance > distanceLimit) distance -= distanceLimit
     // Time calculations for days, hours, minutes and seconds
     // let days = Math.floor(distance / (1000 * 60 * 60 * 24));
     let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -267,12 +271,24 @@ let countDownFunc = function () {
     let seconds = Math.floor((distance % (1000 * 60)) / 1000);
     let secString = String(seconds).padStart(2, '0');
     let minString = String(minutes).padStart(2, '0');
-    document.getElementById("demo").innerHTML = hours + ":"
-        + minString + ":" + secString;
-
+    // console.log(distance)
+    // console.log(notStart)
+    // console.log(distanceLimit)
     // If the count down is finished, write some text
+    if(notStart) {
+
+        document.getElementById("title").innerHTML = "Time to start:";
+        document.getElementById("demo").innerHTML = "-"+ hours + ":"
+        + minString + ":" + secString;
+        return;
+    }
     if (distance < 0) {
+        document.getElementById("title").innerHTML = "Time left:";
         document.getElementById("demo").innerHTML = "0:00:00";
+    } else {
+        document.getElementById("title").innerHTML = "Time left:";
+        document.getElementById("demo").innerHTML = hours + ":"
+        + minString + ":" + secString;
     }
     // console.log(countDownDate)
 }
@@ -286,7 +302,7 @@ function startInterval() {
     stopInterval()
     countDownDate = getNextByDuration();
     document.getElementById("title").innerHTML = "Time left:";
-    interval = setInterval(countDownFunc, 5);
+    interval = setInterval(countDownFunc, 100);
 }
 
 function resetInterval() {
