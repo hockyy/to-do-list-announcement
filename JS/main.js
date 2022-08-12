@@ -2,7 +2,7 @@
 
 const distanceLimit = 5 * 60 * 60000
 // const IOIDate = "2022-08-10T12:43:00"
-const IOIDate = "2022-08-10T18:00:00"
+const IOIDate = "2022-08-12T18:00:00"
 const hourReset = 5;
 const oneMinute = 60000
 const toDoInput = document.querySelector('.todo-input');
